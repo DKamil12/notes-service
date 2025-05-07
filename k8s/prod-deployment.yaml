@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastapi-notes-prod
+  labels:
+    env: prod
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: fastapi-notes
+      env: prod
+  template:
+    metadata:
+      labels:
+        app: fastapi-notes
+        env: prod
+    spec:
+      containers:
+      - name: fastapi-container
+        image: dilnazkamil/fastapi-notes:latest
+        ports:
+        - containerPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: fastapi-service-prod
+spec:
+  selector:
+    app: fastapi-notes
+    env: prod
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+  type: NodePort
