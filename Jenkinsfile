@@ -7,16 +7,23 @@ pipeline {
     }
 
     stages {
-        stage('Install dependencies') {
+        stage('Setup venv + install') {
             steps {
-                sh 'pip install --user -r requirements.txt'
-
+                sh '''
+                    python3 -m venv venv
+                    . venv/bin/activate
+                    pip install --upgrade pip
+                    pip install -r requirements.txt
+                '''
             }
         }
 
         stage('Run tests') {
             steps {
-                sh 'pytest'
+                sh '''
+                    . venv/bin/activate
+                    pytest
+                '''
             }
         }
 
@@ -45,7 +52,7 @@ pipeline {
 
         stage('Deploy to Production') {
             when {
-                branch 'main' 
+                branch 'main'
             }
             steps {
                 sh 'kubectl apply -f k8s/prod-deployment.yaml'
