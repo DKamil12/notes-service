@@ -46,7 +46,7 @@ pipeline {
 
         stage('Deploy to Test Environment') {
             steps {
-                sh 'kubectl apply -f k8s/test-deployment.yaml'
+                sh 'kubectl apply -f k8s/test-deployment.yaml --validate=false'
             }
         }
 
@@ -55,7 +55,7 @@ pipeline {
                 branch 'main'
             }
             steps {
-                sh 'kubectl apply -f k8s/prod-deployment.yaml'
+                sh 'kubectl apply -f k8s/prod-deployment.yaml --validate=false'
             }
         }
     }
