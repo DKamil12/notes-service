@@ -46,16 +46,16 @@ pipeline {
 
         stage('Deploy to Test Environment') {
             steps {
-                sh 'kubectl apply -f k8s/test-deployment.yaml --validate=false'
+                echo '✅ Simulated deployment to Test Environment'
             }
         }
-
+        
         stage('Deploy to Production') {
             when {
                 branch 'main'
             }
             steps {
-                sh 'kubectl apply -f k8s/prod-deployment.yaml --validate=false'
+                echo '✅ Simulated deployment to Production Environment'
             }
         }
     }
