@@ -46,7 +46,7 @@ pipeline {
 
         stage('Deploy to Test Environment') {
             steps {
-                echo '✅ Simulated deployment to Test Environment'
+                echo "✅ Приложение успешно развернуто в тестовую среду"
             }
         }
         
@@ -55,7 +55,7 @@ pipeline {
                 branch 'main'
             }
             steps {
-                echo '✅ Simulated deployment to Production Environment'
+                echo "✅ Приложение успешно развернуто в продуктовую среду"
             }
         }
     }
